@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @Controller
 @RequestMapping(path = "/trips/")
 public class TripController {
@@ -31,6 +33,14 @@ public class TripController {
         return tripRepository.findAll();
     }
 
+    @GetMapping(path="{id}")
+    public @ResponseBody
+    Trip getTripByID(@PathVariable Integer id) {
+        Integer[] ids = {id};
+        Iterable<Integer> i = Arrays.asList(ids);
+        return tripRepository.findAllById(i).iterator().next();
+    }
+    
     @PutMapping(path="{id}")
     public @ResponseBody Trip updateTrip(@PathVariable Integer id, @RequestBody Trip trip) {
         trip.setId(id);
