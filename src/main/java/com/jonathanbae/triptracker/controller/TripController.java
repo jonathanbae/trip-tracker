@@ -30,4 +30,11 @@ public class TripController {
         // This returns a JSON or XML with the users
         return tripRepository.findAll();
     }
+
+    @PutMapping(path="{id}")
+    public @ResponseBody Trip updateTrip(@PathVariable Integer id, @RequestBody Trip trip) {
+        trip.setId(id);
+        tripRepository.save(trip);
+        return trip;
+    }
 }
